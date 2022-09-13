@@ -1,6 +1,6 @@
 pipeline {
   agent none
-  stages {
+  stages {    
     stage('Test') {
       agent {
         kubernetes {
@@ -12,6 +12,15 @@ pipeline {
           echo 'Hello World!'   
           sh 'node --version'
         }
+      }
+    }
+    stage('Deploy') {
+      when {
+        beforeAgent true
+        branch 'main'
+      }
+      steps {
+        echo "TODO - deploy"
       }
     }
   }
