@@ -1,11 +1,13 @@
 pipeline {
   agent none
   stages {
-    stage('Say Hello') {
-      agent {label 'nodejs-app'}
+    stage('Test') {
+      agent {
+        kubernetes {
+          yamlFile 'nodejs-pod.yaml'
+        }
+      }
       steps {
-        echo 'Hello World!'   
-        sh 'java -version'
         container('nodejs') {
           echo 'Hello World!'   
           sh 'node --version'
